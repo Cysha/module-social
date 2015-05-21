@@ -64,9 +64,10 @@ class Social
             $user = $this->user->where('email', $socialiteUser->email)->first();
         } catch(ModelNotFoundException $e) {
             $details = [
-                'username' => $socialiteUser->nickname,
-                'email'    => $socialiteUser->email,
-                'avatar'   => $socialiteUser->avatar,
+                'username'    => $socialiteUser->nickname,
+                'email'       => $socialiteUser->email,
+                'avatar'      => $socialiteUser->avatar,
+                'verified_at' => \Carbon\Carbon::now(),
             ];
 
             if (empty($socialiteUser->nickname)) {
