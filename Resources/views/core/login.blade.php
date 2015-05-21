@@ -20,7 +20,7 @@
             <h2>Site Login</h2>
         </div>
 
-        <div class="alert alert-info"><strong>Information:</strong> Use the buttons below to install the Socialite Provider of your choice. After you have installed the provider, it should show up in the top table ready for configuring.</div>
+        <div class="alert alert-info"><strong>Information:</strong> Using the buttons below you can login using your preffered method. Once logged in, you can add more to your account as a backup.</div>
         <table class="panel-body table table-bordered table-striped">
             <tbody>
             <?php $counter = 0; ?>
