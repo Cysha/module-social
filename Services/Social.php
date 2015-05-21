@@ -4,6 +4,7 @@ use Illuminate\Contracts\Auth\Guard;
 use Laravel\Socialite\Contracts\Factory as Socialite;
 use Cms\Modules\Auth\Repositories\User\RepositoryInterface as UserRepository;
 use Cms\Modules\Social\Models\UserProvider;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 /**
  * Class Registrar
@@ -59,12 +60,21 @@ class Social
     private function getOrCreateUser($provider)
     {
         $socialiteUser = $this->getSocialUser($provider);
+        try {
+            $user = $this->user->where('email', $socialiteUser->email)->first();
+        } catch(ModelNotFoundException $e) {
+            $details = [
+                'username' => $socialiteUser->nickname,
+                'email'    => $socialiteUser->email,
+                'avatar'   => $socialiteUser->avatar,
+            ];
 
-        $user = $this->user->where('email', $socialiteUser->email)->first();
-        if ($user === null) {
-            $user = $this->user->create([
-                'email' => $socialiteUser->email,
-            ]);
+            if (empty($socialiteUser->nickname)) {
+                $details['use_nick'] = 1;
+                list($details['first_name'], $details['last_name']) = explode(' ', $socialiteUser->name);
+            }
+
+            $user = $this->user->create($details);
         }
 
         if (!$user->hasProvider($provider)) {

@@ -4,9 +4,10 @@
 <table class="panel-body table table-bordered table-striped">
     <thead>
         <tr>
-            <th class="col-md-3">Service</th>
-            <th class="col-md-4">Client ID</th>
+            <th class="col-md-2">Service</th>
+            <th class="col-md-2">Client ID</th>
             <th class="col-md-4">Client Secret</th>
+            <th class="col-md-3">Redirect URL</th>
             <th class="col-md-1 text-center"><button class="btn-labeled btn btn-sm btn-success" type="submit">
                 <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span> Save
             </button></th>
@@ -22,9 +23,8 @@
         <tr>
             <td><i class="fa fa-fw {{ array_get($info, 'icon') }}"></i> {{ ucwords($provider) }}</td>
             <td>{!! Form::Config('services.'.$provider.'.client_id')->label(false) !!}</td>
-            <td colspan="2">{!! Form::Config('services.'.$provider.'.client_secret')->label(false) !!}
-                {!! Form::Config('services.'.$provider.'.redirect', 'hidden', route('pxcms.user.provider', ['provider' => $provider]))->label(false) !!}
-            </td>
+            <td>{!! Form::Config('services.'.$provider.'.client_secret')->label(false) !!}</td>
+            <td colspan="2">{!! Form::Config('services.'.$provider.'.redirect', 'text', route('pxcms.user.provider', ['provider' => $provider]))->label(false) !!}</td>
         </tr>
     @endforeach
     </tbody>
