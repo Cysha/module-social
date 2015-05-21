@@ -10,7 +10,7 @@
     "require": {
         "composer/installers"               : "dev-master",
 
-        "laravel/socialite"                 : "~2.0",
+        "laravel/socialite"                 : "~2.0"
     },
     "repositories": [
         { "type": "vcs", "url": "https://github.com/cysha/installers" }
