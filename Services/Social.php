@@ -67,7 +67,6 @@ class Social
                 'username'    => $socialiteUser->nickname,
                 'email'       => $socialiteUser->email,
                 'avatar'      => $socialiteUser->avatar,
-                'verified_at' => \Carbon\Carbon::now(),
             ];
 
             if (empty($socialiteUser->nickname)) {
@@ -75,7 +74,7 @@ class Social
                 list($details['first_name'], $details['last_name']) = explode(' ', $socialiteUser->name);
             }
 
-            $user = $this->user->create($details);
+            $user = $this->user->createWithRoles($details, config('cms.auth.config.users.default_user_group'), true);
         }
 
         if (!$user->hasProvider($provider)) {
