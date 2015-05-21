@@ -1,0 +1,24 @@
+{
+    "name": "Social",
+    "alias": "social",
+    "description": "Social Auth Module for Phoenix CMS v1",
+    "authors": [
+        { "name": "xLink (Dan Aldridge)", "email": "xLink@cybershade.org" }
+    ],
+    "keywords": [
+        "core-module"
+    ],
+    "version": "v1.0.0",
+    "active": 1,
+    "order": 2,
+    "providers": [
+        "Cms\\Modules\\Social\\Providers\\SocialModuleServiceProvider",
+        "Cms\\Modules\\Social\\Providers\\SocialEventsProvider",
+        "Cms\\Modules\\Social\\Providers\\SocialRoutingProvider"
+    ],
+    "aliases": {
+    },
+    "files": [
+        "start.php"
+    ]
+}

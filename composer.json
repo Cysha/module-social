@@ -1,0 +1,18 @@
+{
+    "name": "cysha/pxcms-social",
+    "type": "pxcms-module",
+    "description": "Social Auth Module for Phoenix CMS v1",
+    "license": "MIT",
+    "authors": [
+        { "name": "xLink", "email": "xLink@cybershade.org" }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "composer/installers"               : "dev-master",
+
+        "laravel/socialite"                 : "~2.0",
+    },
+    "repositories": [
+        { "type": "vcs", "url": "https://github.com/cysha/installers" }
+    ]
+}
