@@ -3,6 +3,7 @@
 use Cms\Modules\Core\Providers\BaseModuleProvider;
 use Illuminate\Foundation\AliasLoader;
 use Config;
+use Request;
 
 class SocialModuleServiceProvider extends BaseModuleProvider
 {
@@ -42,6 +43,18 @@ class SocialModuleServiceProvider extends BaseModuleProvider
     {
         parent::register();
 
+        $this->checkForSocialite();
+    }
+
+    public function boot()
+    {
+        parent::boot();
+
+        app('Cms\Modules\Social\Services\UserDatatable')->boot();
+    }
+
+    private function checkForSocialite()
+    {
         // if socialite or the socialiteproviders package is installed, load em
         $loadSocialite = false;
         if (class_exists('SocialiteProviders\Manager\ServiceProvider')) {
@@ -57,5 +70,6 @@ class SocialModuleServiceProvider extends BaseModuleProvider
             AliasLoader::getInstance()->alias('Socialite', 'Laravel\Socialite\Facades\Socialite');
         }
     }
+
 
 }

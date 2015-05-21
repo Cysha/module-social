@@ -6,9 +6,6 @@ use Cms\Modules\Auth\Repositories\User\RepositoryInterface as UserRepository;
 use Cms\Modules\Social\Models\UserProvider;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-/**
- * Class Registrar
- */
 class Social
 {
     /**
