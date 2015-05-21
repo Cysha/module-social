@@ -8,8 +8,8 @@ return [
             },
 
             'hasProvider' => function ($self, $provider) {
-                foreach ($self->providers() as $p) {
-                    if ($p->provider === $provider) {
+                foreach ($self->providers()->get() as $p) {
+                    if (strtolower($p->provider) === strtolower($provider)) {
                         return true;
                     }
                 }

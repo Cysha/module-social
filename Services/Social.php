@@ -60,6 +60,7 @@ class Social
     private function getOrCreateUser($provider)
     {
         $socialiteUser = $this->getSocialUser($provider);
+
         try {
             $user = $this->user->where('email', $socialiteUser->email)->first();
         } catch(ModelNotFoundException $e) {
