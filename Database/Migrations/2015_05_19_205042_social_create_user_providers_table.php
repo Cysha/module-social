@@ -16,6 +16,8 @@ class SocialCreateUserProvidersTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
+            $table->string('username')->nullable();
+            $table->string('name')->nullable();
             $table->string('provider');
             $table->string('provider_id');
             $table->string('avatar')->nullable();
