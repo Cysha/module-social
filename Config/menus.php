@@ -2,14 +2,14 @@
 
 return [
 
-    'acp_menu' => [
+    'backend_sidebar' => [
 
         'System' => [
             [
                 'route'      => 'admin.config.social',
                 'text'       => 'Social Manager',
                 'icon'       => 'fa-share-alt-square',
-                'order'      => 5,
+                'order'      => 1,
                 'permission' => 'manage@social_admin'
             ],
         ]
