@@ -1,10 +1,10 @@
 <?php namespace Cms\Modules\Social\Services;
 
-use Illuminate\Contracts\Auth\Guard;
-use Laravel\Socialite\Contracts\Factory as Socialite;
 use Cms\Modules\Auth\Repositories\User\RepositoryInterface as UserRepository;
-use Cms\Modules\Social\Models\UserProvider;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Laravel\Socialite\Contracts\Factory as Socialite;
+use Cms\Modules\Social\Models\UserProvider;
+use Illuminate\Contracts\Auth\Guard;
 
 class Social
 {
@@ -38,53 +38,119 @@ class Social
      */
     public function loginThirdParty($request, $provider)
     {
+        // travelling somewhere...
         if (!$request) {
             return $this->getAuthorizationFirst($provider);
         }
-        // grab the user
-        $user = $this->getOrCreateUser($provider);
+        $socialiteUser = $this->getSocialUser($provider);
+
+        // if user is a guest try and log em in
+        if ($this->auth->guest()) {
+            // check if the provider exists
+            if (($user = $this->getByProvider($provider, $socialiteUser)) !== null) {
+                return $this->loginUser($user);
+            }
+
+            // grab the user
+            $user = $this->getOrCreateUser($provider, $socialiteUser);
+
+            return $this->loginUser($user);
+
+        // otherwise link their social to their real account
+        } else {
+            $user = $this->auth->getUser();
+            if (!$user->hasProvider($provider)) {
+                $this->createSocialLink($user, $socialiteUser, $provider);
+            }
+
+            return redirect()
+                ->intended(route(config('cms.auth.paths.redirect_login', 'pxcms.pages.home')))
+                ->withInfo('Your '.$provider.' account has been linked. You can use this to login from now on.');
+        }
+    }
+
+    /**
+     * Log the user in
+     */
+    private function loginUser($user)
+    {
+        $model = config('auth.model');
+        if (!($user instanceof $model)) {
+            throw new \Exception('No valid user returned');
+        }
 
         // log the user in & fire the logged in event
         $this->auth->login($user, true);
-        event(new \Cms\Modules\Auth\Events\UserHasLoggedIn(\Auth::user()->id));
+        event(new \Cms\Modules\Auth\Events\UserHasLoggedIn($user->id));
 
         return redirect()->intended(route(config('cms.auth.paths.redirect_login', 'pxcms.pages.home')));
     }
 
     /**
+     * Check to see if this user provider already exists, if so return the user
+     */
+    private function getByProvider($provider, $socialiteUser)
+    {
+        try {
+            $userProvider = with(new UserProvider)->where('email', $socialiteUser->email)->firstOrFail();
+        } catch (ModelNotFoundException $e) {
+            return null;
+        }
+
+        return $this->user->getById($userProvider->user_id);
+    }
+
+    /**
      * Check if the user is already in the db, if not create it
      */
-    private function getOrCreateUser($provider)
+    private function getOrCreateUser($provider, $socialiteUser)
     {
-        $socialiteUser = $this->getSocialUser($provider);
-
         try {
             $user = $this->user->where('email', $socialiteUser->email)->first();
         } catch(ModelNotFoundException $e) {
-            $details = [
-                'username'    => $socialiteUser->nickname,
-                'email'       => $socialiteUser->email,
-                'avatar'      => $socialiteUser->avatar,
-            ];
-
-            if (empty($socialiteUser->nickname)) {
-                $details['use_nick'] = 1;
-                list($details['first_name'], $details['last_name']) = explode(' ', $socialiteUser->name);
-            }
-
-            $user = $this->user->createWithRoles($details, config('cms.auth.config.users.default_user_group'), true);
+            $user = $this->createUserWithSocialiteDetails($socialiteUser);
         }
 
         if (!$user->hasProvider($provider)) {
-            with(new UserProvider)->fill([
-                'avatar'      => $socialiteUser->avatar,
-                'user_id'     => $user->id,
-                'provider'    => $provider,
-                'provider_id' => $socialiteUser->id,
-            ])->save();
+            $this->createSocialLink($user, $socialiteUser, $provider);
         }
 
         return $user;
+    }
+
+    /**
+     * Create a user using the socialite details
+     */
+    private function createUserWithSocialiteDetails($socialiteUser)
+    {
+        $details = [
+            'username' => $socialiteUser->nickname,
+            'name'     => $socialiteUser->name,
+            'email'    => $socialiteUser->email,
+            'avatar'   => $socialiteUser->avatar,
+        ];
+
+        if (empty($socialiteUser->nickname)) {
+            $details['use_nick'] = 1;
+        }
+
+        return $this->user->createWithRoles($details, config('cms.auth.config.users.default_user_group'), true);
+    }
+
+    /**
+     * Create a social user
+     */
+    private function createSocialLink($user, $socialiteUser, $provider)
+    {
+        return with(new UserProvider)->fill([
+            'username'    => $socialiteUser->nickname,
+            'name'        => $socialiteUser->name,
+            'email'       => $socialiteUser->email,
+            'avatar'      => $socialiteUser->avatar,
+            'user_id'     => $user->id,
+            'provider'    => $provider,
+            'provider_id' => $socialiteUser->id,
+        ])->save();
     }
 
     /**

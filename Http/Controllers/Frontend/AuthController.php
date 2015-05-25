@@ -19,7 +19,7 @@ class AuthController extends BaseModuleController
             app('Illuminate\Filesystem\Filesystem')
         );
 
-        $this->middleware('guest', ['except' => 'getLogout']);
+        $this->middleware('guest', ['except' => ['getLogout', 'loginThirdParty']]);
     }
 
     /**
