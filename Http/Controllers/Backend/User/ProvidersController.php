@@ -9,7 +9,6 @@ class ProvidersController extends BaseUserController
     public function getForm(Auth\Models\User $user)
     {
         $data = $this->getUserDetails($user);
-        $this->theme->setTitle('User Manager <small>> '.$user->screename.' > Edit</small>');
 
         return $this->setView('admin.user.providers', $data, 'module');
     }
