@@ -38,6 +38,13 @@ class Social
      */
     public function loginThirdParty($request, $provider)
     {
+        $provider = strtolower(trim($provider));
+
+        // if we dont have this provider, error out
+        if (!in_array($provider, $this->getConfiguredProviders())) {
+            return redirect(route('pxcms.pages.home'))->withError('This provider is not supported.');
+        }
+
         // travelling somewhere...
         if (!$request) {
             return $this->getAuthorizationFirst($provider);
@@ -198,7 +205,7 @@ class Social
                     continue;
                 }
 
-                $socialiteProviders[] = $dir;
+                $socialiteProviders[] = strtolower($dir);
             }
         }
 
@@ -221,7 +228,7 @@ class Social
                     config(sprintf('services.%s.client_secret', $provider), null) !== null) {
 
                 // assume its configured
-                $configured[] = $provider;
+                $configured[] = strtolower($provider);
             }
         }
 
