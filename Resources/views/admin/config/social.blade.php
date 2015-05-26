@@ -24,7 +24,7 @@
             <td><i class="fa fa-fw {{ array_get($info, 'icon') }}"></i> {{ ucwords($provider) }}</td>
             <td>{!! Form::Config('services.'.$provider.'.client_id')->label(false) !!}</td>
             <td>{!! Form::Config('services.'.$provider.'.client_secret')->label(false) !!}</td>
-            <td colspan="2">{!! Form::Config('services.'.$provider.'.redirect', 'text', route('pxcms.user.provider', ['provider' => $provider]))->label(false) !!}</td>
+            <td colspan="2">{!! Former::input('services.'.$provider.'.redirect')->value(route('pxcms.user.provider', ['provider' => strtolower($provider)]))->label(false) !!}</td>
         </tr>
     @endforeach
     </tbody>
