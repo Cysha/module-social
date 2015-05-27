@@ -1,9 +1,9 @@
 <?php namespace Cms\Modules\Social\Http\Controllers\Backend;
 
-use Cms\Modules\Core\Http\Controllers\BaseAdminController;
+use Cms\Modules\Core\Http\Controllers\BaseBackendController;
 use Cms\Modules\Social\Services\Social;
 
-class SocialManagerController extends BaseAdminController
+class SocialManagerController extends BaseBackendController
 {
     /**
      * Render a table for the providers

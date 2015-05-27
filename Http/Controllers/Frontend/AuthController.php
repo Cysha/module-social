@@ -1,10 +1,10 @@
 <?php namespace Cms\Modules\Social\Http\Controllers\Frontend;
 
-use Cms\Modules\Core\Http\Controllers\BaseModuleController;
+use Cms\Modules\Core\Http\Controllers\BaseFrontendController;
 use Cms\Modules\Social\Services\Social;
 use Illuminate\Http\Request;
 
-class AuthController extends BaseModuleController
+class AuthController extends BaseFrontendController
 {
     public $layout = '2-column-left';
 
