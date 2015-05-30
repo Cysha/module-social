@@ -2,7 +2,9 @@
 
 return [
     'social_admin' => [
-        'manage', 'manage.install', 'manage.disable',
+        'manage' => 'Manage Social Providers',
+        'manage.install' => 'Install a provider',
+        'manage.disable' => 'Disable a provider',
     ],
 
 ];
