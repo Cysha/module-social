@@ -12,7 +12,9 @@ class SocialEventsProvider extends BaseEventsProvider
      * @var array
      */
     protected $listen = [
-
+        'Cms\Modules\Admin\Events\GotDatatableConfig' => [
+            'Cms\Modules\Social\Events\Handlers\ManipulateUserDatatable',
+        ],
     ];
 
     /**
@@ -59,8 +61,6 @@ class SocialEventsProvider extends BaseEventsProvider
             }
 
             $listen[] = sprintf('SocialiteProviders\%1$s\%1$sExtendSocialite@handle', ucwords(class_basename($dir)));
-
-            \Debug::console(['registering', ucwords(class_basename($dir))]);
         }
 
         $this->listen['SocialiteProviders\Manager\SocialiteWasCalled'] = $listen;
