@@ -49,8 +49,6 @@ class SocialModuleServiceProvider extends BaseModuleProvider
     public function boot()
     {
         parent::boot();
-
-        app('Cms\Modules\Social\Services\UserDatatable')->boot();
     }
 
     private function checkForSocialite()
