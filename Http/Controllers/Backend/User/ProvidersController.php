@@ -9,6 +9,7 @@ class ProvidersController extends BaseUserController
     public function getForm(Auth\Models\User $user)
     {
         $data = $this->getUserDetails($user);
+        $this->theme->breadcrumb()->add('Social Providers', route('admin.user.provider', $user->id));
 
         return $this->setView('admin.user.providers', $data, 'module');
     }
