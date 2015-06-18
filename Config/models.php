@@ -1,13 +1,15 @@
 <?php
 
+$serializer = new SuperClosure\Serializer;
+
 return [
     'Auth' => [
         'User' => [
-            'providers' => function ($self) {
+            'providers' => $serializer->serialize(function ($self) {
                 return $self->hasMany('Cms\Modules\Social\Models\UserProvider');
-            },
+            }),
 
-            'hasProvider' => function ($self, $provider) {
+            'hasProvider' => $serializer->serialize(function ($self, $provider) {
                 if (!$self->providers()->count()) {
                     return false;
                 }
@@ -18,7 +20,7 @@ return [
                     }
                 }
                 return false;
-            }
+            })
         ],
     ],
 ];
