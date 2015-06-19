@@ -36,8 +36,8 @@ class ManipulateUserDatatable
     private function addProviderColumn(&$config)
     {
         $column['providers'] = [
-            'th'        => 'Providers',
-            'tr'        => function ($model) {
+            'th' => 'Providers',
+            'tr' => function ($model) {
                 $providers = null;
 
                 if (!$model->providers->count()) {
@@ -51,8 +51,8 @@ class ManipulateUserDatatable
 
                 return $providers;
             },
-            'filtering' => true,
-            'width'     => '15%',
+            'sortable' => true,
+            'width' => '15%',
         ];
 
         array_splice($config['columns'], 4, 0, $column);
