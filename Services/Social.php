@@ -141,7 +141,7 @@ class Social
             $details['use_nick'] = 1;
         }
 
-        return $this->user->createWithRoles($details, config('cms.auth.config.users.default_user_group'), true);
+        return $this->user->createWithRoles($details, config('cms.auth.config.roles.user_group'), true);
     }
 
     /**
