@@ -35,6 +35,8 @@ class AuthController extends BaseFrontendController
      */
     public function getLogin()
     {
+        $this->setLayout('1-column');
+
         // grab the configured providers
         $configuredProviders = $this->social->getConfiguredProviders();
 
