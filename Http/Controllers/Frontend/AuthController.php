@@ -3,6 +3,7 @@
 use Cms\Modules\Core\Http\Controllers\BaseFrontendController;
 use Cms\Modules\Social\Services\Social;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends BaseFrontendController
 {
@@ -19,7 +20,7 @@ class AuthController extends BaseFrontendController
             app('Illuminate\Filesystem\Filesystem')
         );
 
-        $this->middleware('guest', ['except' => ['getLogout', 'loginThirdParty']]);
+        $this->middleware('guest', ['except' => ['getLogout', 'loginThirdParty', 'removeProvider']]);
     }
 
     /**
@@ -28,6 +29,16 @@ class AuthController extends BaseFrontendController
     public function loginThirdParty(Request $request, $provider)
     {
         return $this->social->loginThirdParty($request->all(), $provider);
+    }
+
+    public function removeProvider($provider) {
+        $user_id = Auth::id();
+
+        if (!$this->social->removeProvider($user_id, $provider)) {
+            return redirect()->back()->withError(sprintf('%s was not removed successfully', ucwords($provider)));
+        }
+
+        return redirect()->back()->withInfo(sprintf('%s removed successfully', ucwords($provider)));
     }
 
     /**

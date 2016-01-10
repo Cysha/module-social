@@ -9,19 +9,19 @@
         <table class="table table-striped panel-body">
             <thead>
                 <tr>
+                    <th>User</th>
                     <th>Provider</th>
-                    <th>Avatar</th>
-                    <th>Details</th>
+                    <th>Link Created</th>
                     <th>Remove</th>
                 </tr>
             </thead>
             <tbody>
             @foreach ($user->providers()->get() as $provider)
                 <tr>
+                    <td>{{ $provider->username }} <br /><img src="{{ $provider->avatar }}" alt="" style="height: 80px; width: 80px;"></td>
                     <td>{{ ucwords($provider->provider) }}</td>
-                    <td><img src="{{ $provider->avatar }}" alt="" style="height: 80px; width: 80px;"></td>
-                    <td>{{ ($provider->created_at) }}</td>
-                    <td>{{ $provider->provider }}</td>
+                    <td>{!! array_get(date_array($provider->created_at), 'element') !!}</td>
+                    <td><a href="{{ route('admin.user.remove_provider', ['provider' => $provider->provider, 'user_id' => $user->id]) }}" class="btn btn-danger btn-sm"><i class="fa fa-times"></i></a></td>
                 </tr>
             @endforeach
             </tbody>

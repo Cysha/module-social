@@ -71,9 +71,39 @@ class Social
             }
 
             return redirect()
-                ->intended(route(config('cms.auth.paths.redirect_login', 'pxcms.pages.home')))
+                ->back()
                 ->withInfo('Your '.$provider.' account has been linked. You can use this to login from now on.');
         }
+    }
+
+    public function removeProvider($user_id, $provider) {
+
+        // grab the user object
+        $authModel = config('auth.model');
+
+        $user = with(new $authModel)
+                ->with('providers')
+                ->find($user_id);
+
+        if ($user === null) {
+            return redirect()->back()->withError('There seems to be a problem finding the user account, try again later.');
+        }
+
+        // sanity check we actually have some providers
+        if ($user->providers->count() == 0) {
+            return redirect()->back()->withError('This user account doesn\'t seem to have any providers attached.');
+        }
+
+        // make sure they have the provider we are looking to remove
+        $rmProvider = $user->providers->filter(function($row) use($provider) {
+            return ($row->provider === $provider);
+        });
+        if ($rmProvider === null) {
+            return redirect()->back()->withError('Could not find the requested provider to remove.');
+        }
+
+        // and remove it!
+        return $rmProvider->first()->delete();
     }
 
     /**
@@ -175,7 +205,6 @@ class Social
     {
         return $this->socialite->driver($provider)->user();
     }
-
 
     /**
      * Grab the list of providers

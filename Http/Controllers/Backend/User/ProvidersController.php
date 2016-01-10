@@ -1,6 +1,7 @@
 <?php namespace Cms\Modules\Social\Http\Controllers\Backend\User;
 
 use Cms\Modules\Auth\Http\Controllers\Backend\User\BaseUserController;
+use Cms\Modules\Social\Services\Social;
 use Illuminate\Http\Request;
 use Cms\Modules\Auth as Auth;
 
@@ -14,16 +15,14 @@ class ProvidersController extends BaseUserController
         return $this->setView('admin.user.providers', $data, 'module');
     }
 
-    public function postForm(Auth\Models\User $user, Request $input)
-    {
-        $input = $input->only(['']);
+    public function removeProvider(Auth\Models\User $user, $provider, Social $social) {
+        $user_id = $user->id;
 
-        $user->hydrateFromInput($input);
-
-        if ($user->save() === false) {
-            return Redirect::back()->withErrors($user->getErrors());
+        if (!$social->removeProvider($user_id, $provider)) {
+            return redirect()->back()->withError(sprintf('%s was not removed successfully', ucwords($provider)));
         }
 
-        return Redirect::route('admin.user.password', $user->id)->withInfo('Password Updated');
+        return redirect()->back()->withInfo(sprintf('%s removed successfully', ucwords($provider)));
     }
+
 }

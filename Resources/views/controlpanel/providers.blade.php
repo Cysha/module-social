@@ -32,7 +32,7 @@
                         <td>{{ $provider->username }} <br /><img src="{{ $provider->avatar }}" alt="" style="height: 80px; width: 80px;"></td>
                         <td>{{ ucwords($provider->provider) }}</td>
                         <td>{!! array_get(date_array($provider->created_at), 'element') !!}</td>
-                        <td><a href="{{ route('pxcms.user.remove_provider', ['provider' => $provider]) }}" class="btn btn-danger btn-sm"><i class="fa fa-times"></i></a></td>
+                        <td><a href="{{ route('pxcms.user.remove_provider', ['provider' => $provider->provider]) }}" class="btn btn-danger btn-sm"><i class="fa fa-times"></i></a></td>
                     </tr>
                 @endforeach
                 </tbody>

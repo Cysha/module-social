@@ -26,7 +26,8 @@ $router->group([
         $router->group(['middleware' => 'hasPermission', 'hasPermission' => 'manage.update@auth_user'], function (Router $router) {
 
             $router->group(['prefix' => 'providers'], function (Router $router) {
-                $router->post('/', ['uses' => 'ProvidersController@postForm']);
+                $router->get('{provider}/remove', ['as' => 'admin.user.remove_provider', 'uses' => 'ProvidersController@removeProvider']);
+
                 $router->get('/', ['as' => 'admin.user.provider', 'uses' => 'ProvidersController@getForm']);
             });
 
