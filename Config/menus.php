@@ -27,4 +27,15 @@ return [
         ],
     ],
 
+
+    'frontend_user_controlpanel' => [
+        [
+            'route'      => 'pxcms.user.provider_settings',
+            'text'       => 'Social Providers',
+            'icon'       => 'fa-share-alt-square',
+            'order'      => 4,
+            'permission' => null
+        ],
+    ],
+
 ];
