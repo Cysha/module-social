@@ -57,7 +57,7 @@ class AuthController extends BaseFrontendController
         }
 
         // if we have some, then throw our new one into the mix
-        return $this->setView('core.login', [
+        return $this->setView('core.social-login', [
             'socialiteProviders' => $this->social->getProviders(),
             'configuredProviders' => $configuredProviders,
         ]);
