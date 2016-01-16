@@ -27,7 +27,7 @@
             </div>
             <div class="col-md-8">
                 <h4>Direct Login</h4>
-                {!! Theme::partial('core.login') !!}
+                {!! Theme::partial('core._login_form') !!}
             </div>
         </div>
     </div>
