@@ -4,13 +4,13 @@ return [
 
     'backend_sidebar' => [
 
-        'System' => [
+        'Site Management' => [
             'children' => [
                 [
                     'route'      => 'admin.config.social',
                     'text'       => 'Social Manager',
                     'icon'       => 'fa-share-alt-square',
-                    'order'      => 1,
+                    'order'      => 10,
                     'permission' => 'manage@social_admin'
                 ],
             ],
