@@ -69,5 +69,4 @@ class SocialModuleServiceProvider extends BaseModuleProvider
         }
     }
 
-
 }

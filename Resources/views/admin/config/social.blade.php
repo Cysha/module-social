@@ -15,11 +15,10 @@
     </thead>
     <tbody>
     @foreach($socialiteProviders as $provider => $info)
-        <?php
-        if (!in_array(strtolower($provider), $installedProviders)) {
-            continue;
-        }
-        ?>
+        @set($provider, strtolower($provider))
+        @if (!in_array($provider, $installedProviders))
+            @continue
+        @endif
         <tr>
             <td><i class="fa fa-fw {{ array_get($info, 'icon') }}"></i> {{ ucwords($provider) }}</td>
             <td>{!! Form::Config('services.'.$provider.'.client_id')->label(false) !!}</td>

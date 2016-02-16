@@ -11,6 +11,7 @@ return [
     'github'          => ['repo' => 'laravel/socialite', 'icon' => 'fa-github-square'],
 
     // SocialiteProviders
+    'darkscience'     => ['repo' => 'socialiteProviders/darkscience', 'icon' => 'fa-square'],
     '23andme'         => ['repo' => 'socialiteProviders/23andme', 'icon' => 'fa-square'],
     '37signals'       => ['repo' => 'socialiteProviders/37signals', 'icon' => 'fa-square'],
     '500px'           => ['repo' => 'socialiteProviders/500px', 'icon' => 'fa-square'],
