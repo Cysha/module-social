@@ -1,5 +1,5 @@
 {
-    "name": "cysha/pxcms-social",
+    "name": "cysha/module-social",
     "type": "pxcms-module",
     "description": "Social Auth Module for Phoenix CMS v1",
     "license": "MIT",
