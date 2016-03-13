@@ -17,7 +17,7 @@ class AuthController extends BaseFrontendController
     {
         $this->social = $social;
 
-        $this->_setDependencies(
+        $this->setDependencies(
             app('Teepluss\Theme\Contracts\Theme'),
             app('Illuminate\Filesystem\Filesystem')
         );
