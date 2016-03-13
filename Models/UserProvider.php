@@ -1,4 +1,6 @@
-<?php namespace Cms\Modules\Social\Models;
+<?php
+
+namespace Cms\Modules\Social\Models;
 
 class UserProvider extends BaseModel
 {
@@ -10,5 +12,4 @@ class UserProvider extends BaseModel
     {
         return $this->hasOne(config('auth.model'));
     }
-
 }

@@ -1,4 +1,6 @@
-<?php namespace Cms\Modules\Social\Http\Controllers\Frontend\ControlPanel;
+<?php
+
+namespace Cms\Modules\Social\Http\Controllers\Frontend\ControlPanel;
 
 use Cms\Modules\Auth\Http\Controllers\Frontend\ControlPanel\BaseController;
 use Cms\Modules\Social\Services\Social;
@@ -6,7 +8,6 @@ use Illuminate\Support\Facades\Auth;
 
 class ProviderController extends BaseController
 {
-
     public function getForm(Social $social)
     {
         $data = $this->getUserDetails();
@@ -22,7 +23,5 @@ class ProviderController extends BaseController
 
     public function postForm()
     {
-
     }
-
 }

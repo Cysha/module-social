@@ -1,4 +1,6 @@
-<?php namespace Cms\Modules\Social\Http\Controllers\Frontend;
+<?php
+
+namespace Cms\Modules\Social\Http\Controllers\Frontend;
 
 use Cms\Modules\Core\Http\Controllers\BaseFrontendController;
 use Cms\Modules\Social\Services\Social;
@@ -24,14 +26,15 @@ class AuthController extends BaseFrontendController
     }
 
     /**
-     * Setup the Socialite login procedure
+     * Setup the Socialite login procedure.
      */
     public function loginThirdParty(Request $request, $provider)
     {
         return $this->social->loginThirdParty($request->all(), $provider);
     }
 
-    public function removeProvider($provider) {
+    public function removeProvider($provider)
+    {
         $user_id = Auth::id();
 
         if (!$this->social->removeProvider($user_id, $provider)) {

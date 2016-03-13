@@ -1,4 +1,6 @@
-<?php namespace Cms\Modules\Social\Models;
+<?php
+
+namespace Cms\Modules\Social\Models;
 
 use Cms\Modules\Core\Models\BaseModel as CBM;
 

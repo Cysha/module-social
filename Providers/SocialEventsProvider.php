@@ -1,8 +1,9 @@
-<?php namespace Cms\Modules\Social\Providers;
+<?php
+
+namespace Cms\Modules\Social\Providers;
 
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Cms\Modules\Core\Providers\BaseEventsProvider;
-use Cache;
 
 class SocialEventsProvider extends BaseEventsProvider
 {
@@ -26,16 +27,13 @@ class SocialEventsProvider extends BaseEventsProvider
 
     ];
 
-
     /**
      * Register any other events for your application.
      *
-     * @param  \Illuminate\Contracts\Events\Dispatcher  $events
-     * @return void
+     * @param \Illuminate\Contracts\Events\Dispatcher $events
      */
     public function boot(DispatcherContract $events)
     {
         parent::boot($events);
     }
-
 }

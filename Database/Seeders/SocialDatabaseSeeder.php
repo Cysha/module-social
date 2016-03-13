@@ -1,4 +1,6 @@
-<?php namespace Cms\Modules\Social\Database\Seeders;
+<?php
+
+namespace Cms\Modules\Social\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
@@ -7,8 +9,6 @@ class SocialDatabaseSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
     public function run()
     {
@@ -16,5 +16,4 @@ class SocialDatabaseSeeder extends Seeder
 
         // $this->call(__NAMESPACE__.'\Seeder');
     }
-
 }

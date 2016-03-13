@@ -1,6 +1,6 @@
 <?php
 
-$serializer = new SuperClosure\Serializer;
+$serializer = new SuperClosure\Serializer();
 
 return [
     'Auth' => [
@@ -19,8 +19,9 @@ return [
                         return true;
                     }
                 }
+
                 return false;
-            })
+            }),
         ],
     ],
 ];

@@ -7,8 +7,6 @@ class SocialCreateUserProvidersTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
@@ -29,8 +27,6 @@ class SocialCreateUserProvidersTable extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {
@@ -39,5 +35,4 @@ class SocialCreateUserProvidersTable extends Migration
         });
         Schema::drop('user_providers');
     }
-
 }

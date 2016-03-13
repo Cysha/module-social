@@ -1,13 +1,12 @@
-<?php namespace Cms\Modules\Social\Providers;
+<?php
+
+namespace Cms\Modules\Social\Providers;
 
 use Cms\Modules\Core\Providers\BaseModuleProvider;
 use Illuminate\Foundation\AliasLoader;
-use Config;
-use Request;
 
 class SocialModuleServiceProvider extends BaseModuleProvider
 {
-
     /**
      * Register the defined middleware.
      *
@@ -29,7 +28,7 @@ class SocialModuleServiceProvider extends BaseModuleProvider
     ];
 
     /**
-     * Register repository bindings to the IoC
+     * Register repository bindings to the IoC.
      *
      * @var array
      */
@@ -37,7 +36,7 @@ class SocialModuleServiceProvider extends BaseModuleProvider
     ];
 
     /**
-     * Register Auth related stuffs
+     * Register Auth related stuffs.
      */
     public function register()
     {
@@ -58,7 +57,6 @@ class SocialModuleServiceProvider extends BaseModuleProvider
         if (class_exists('SocialiteProviders\Manager\ServiceProvider')) {
             $loadSocialite = true;
             $this->app->register('SocialiteProviders\Manager\ServiceProvider');
-
         } elseif (class_exists('Laravel\Socialite\SocialiteServiceProvider')) {
             $loadSocialite = true;
             $this->app->register('Laravel\Socialite\SocialiteServiceProvider');
@@ -68,5 +66,4 @@ class SocialModuleServiceProvider extends BaseModuleProvider
             AliasLoader::getInstance()->alias('Socialite', 'Laravel\Socialite\Facades\Socialite');
         }
     }
-
 }

@@ -1,4 +1,6 @@
-<?php namespace Cms\Modules\Social\Services;
+<?php
+
+namespace Cms\Modules\Social\Services;
 
 use Cms\Modules\Auth\Repositories\User\RepositoryInterface as UserRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -22,8 +24,8 @@ class Social
     private $user;
 
     /**
-     * @param Socialite $socialite
-     * @param Guard $auth
+     * @param Socialite      $socialite
+     * @param Guard          $auth
      * @param UserRepository $user
      */
     public function __construct(Socialite $socialite, Guard $auth, UserRepository $user)
@@ -34,7 +36,7 @@ class Social
     }
 
     /**
-     * Run the process for logging in via Socialite
+     * Run the process for logging in via Socialite.
      */
     public function loginThirdParty($request, $provider)
     {
@@ -76,12 +78,13 @@ class Social
         }
     }
 
-    public function removeProvider($user_id, $provider) {
+    public function removeProvider($user_id, $provider)
+    {
 
         // grab the user object
         $authModel = config('auth.model');
 
-        $user = with(new $authModel)
+        $user = with(new $authModel())
                 ->with('providers')
                 ->find($user_id);
 
@@ -95,8 +98,8 @@ class Social
         }
 
         // make sure they have the provider we are looking to remove
-        $rmProvider = $user->providers->filter(function($row) use($provider) {
-            return ($row->provider === $provider);
+        $rmProvider = $user->providers->filter(function ($row) use ($provider) {
+            return $row->provider === $provider;
         });
         if ($rmProvider === null) {
             return redirect()->back()->withError('Could not find the requested provider to remove.');
@@ -107,7 +110,7 @@ class Social
     }
 
     /**
-     * Log the user in
+     * Log the user in.
      */
     private function loginUser($user)
     {
@@ -124,27 +127,27 @@ class Social
     }
 
     /**
-     * Check to see if this user provider already exists, if so return the user
+     * Check to see if this user provider already exists, if so return the user.
      */
     private function getByProvider($provider, $socialiteUser)
     {
         try {
-            $userProvider = with(new UserProvider)->where('email', $socialiteUser->email)->firstOrFail();
+            $userProvider = with(new UserProvider())->where('email', $socialiteUser->email)->firstOrFail();
         } catch (ModelNotFoundException $e) {
-            return null;
+            return;
         }
 
         return $this->user->getById($userProvider->user_id);
     }
 
     /**
-     * Check if the user is already in the db, if not create it
+     * Check if the user is already in the db, if not create it.
      */
     private function getOrCreateUser($provider, $socialiteUser)
     {
         try {
             $user = $this->user->where('email', $socialiteUser->email)->first();
-        } catch(ModelNotFoundException $e) {
+        } catch (ModelNotFoundException $e) {
             $user = $this->createUserWithSocialiteDetails($socialiteUser);
         }
 
@@ -156,15 +159,15 @@ class Social
     }
 
     /**
-     * Create a user using the socialite details
+     * Create a user using the socialite details.
      */
     private function createUserWithSocialiteDetails($socialiteUser)
     {
         $details = [
             'username' => $socialiteUser->nickname,
-            'name'     => $socialiteUser->name,
-            'email'    => $socialiteUser->email,
-            'avatar'   => $socialiteUser->avatar,
+            'name' => $socialiteUser->name,
+            'email' => $socialiteUser->email,
+            'avatar' => $socialiteUser->avatar,
         ];
 
         if (empty($socialiteUser->nickname)) {
@@ -175,17 +178,17 @@ class Social
     }
 
     /**
-     * Create a social user
+     * Create a social user.
      */
     private function createSocialLink($user, $socialiteUser, $provider)
     {
-        return with(new UserProvider)->fill([
-            'username'    => $socialiteUser->nickname,
-            'name'        => $socialiteUser->name,
-            'email'       => $socialiteUser->email,
-            'avatar'      => $socialiteUser->avatar,
-            'user_id'     => $user->id,
-            'provider'    => $provider,
+        return with(new UserProvider())->fill([
+            'username' => $socialiteUser->nickname,
+            'name' => $socialiteUser->name,
+            'email' => $socialiteUser->email,
+            'avatar' => $socialiteUser->avatar,
+            'user_id' => $user->id,
+            'provider' => $provider,
             'provider_id' => $socialiteUser->id,
         ])->save();
     }
@@ -199,7 +202,7 @@ class Social
     }
 
     /**
-     * Get the user details from socialite
+     * Get the user details from socialite.
      */
     private function getSocialUser($provider)
     {
@@ -207,7 +210,7 @@ class Social
     }
 
     /**
-     * Grab the list of providers
+     * Grab the list of providers.
      *
      * @return array
      */
@@ -217,7 +220,7 @@ class Social
     }
 
     /**
-     * Grab a list of the installed Providers
+     * Grab a list of the installed Providers.
      *
      * @return array
      */
@@ -242,7 +245,7 @@ class Social
     }
 
     /**
-     * Grab a list of the configured Providers
+     * Grab a list of the configured Providers.
      *
      * @return array
      */
@@ -263,5 +266,4 @@ class Social
 
         return $configured;
     }
-
 }

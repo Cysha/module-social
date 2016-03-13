@@ -1,10 +1,11 @@
-<?php namespace Cms\Modules\Social\Providers;
+<?php
+
+namespace Cms\Modules\Social\Providers;
 
 use Cms\Modules\Core\Providers\CmsRoutingProvider;
 
 class SocialRoutingProvider extends CmsRoutingProvider
 {
-
     protected $namespace = 'Cms\Modules\Social\Http\Controllers';
 
     /**
@@ -12,7 +13,7 @@ class SocialRoutingProvider extends CmsRoutingProvider
      */
     protected function getFrontendRoute()
     {
-        return __DIR__ . '/../Http/routes-frontend.php';
+        return __DIR__.'/../Http/routes-frontend.php';
     }
 
     /**
@@ -20,7 +21,7 @@ class SocialRoutingProvider extends CmsRoutingProvider
      */
     protected function getBackendRoute()
     {
-        return __DIR__ . '/../Http/routes-backend.php';
+        return __DIR__.'/../Http/routes-backend.php';
     }
 
     /**
@@ -28,6 +29,6 @@ class SocialRoutingProvider extends CmsRoutingProvider
      */
     protected function getApiRoute()
     {
-        return __DIR__ . '/../Http/routes-api.php';
+        return __DIR__.'/../Http/routes-api.php';
     }
 }

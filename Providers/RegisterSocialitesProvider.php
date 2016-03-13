@@ -1,8 +1,9 @@
-<?php namespace Cms\Modules\Social\Providers;
+<?php
+
+namespace Cms\Modules\Social\Providers;
 
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Cms\Modules\Core\Providers\BaseEventsProvider;
-use Cache;
 
 class RegisterSocialitesProvider extends BaseEventsProvider
 {
@@ -22,12 +23,10 @@ class RegisterSocialitesProvider extends BaseEventsProvider
     protected $subscribe = [
     ];
 
-
     /**
      * Register any other events for your application.
      *
-     * @param  \Illuminate\Contracts\Events\Dispatcher  $events
-     * @return void
+     * @param \Illuminate\Contracts\Events\Dispatcher $events
      */
     public function boot(DispatcherContract $events)
     {
@@ -36,7 +35,7 @@ class RegisterSocialitesProvider extends BaseEventsProvider
     }
 
     /**
-     * Check to see if we have any installed socialite providers
+     * Check to see if we have any installed socialite providers.
      */
     private function registerSocialiteProviders()
     {

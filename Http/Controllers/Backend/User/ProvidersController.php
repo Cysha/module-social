@@ -1,8 +1,9 @@
-<?php namespace Cms\Modules\Social\Http\Controllers\Backend\User;
+<?php
+
+namespace Cms\Modules\Social\Http\Controllers\Backend\User;
 
 use Cms\Modules\Auth\Http\Controllers\Backend\User\BaseUserController;
 use Cms\Modules\Social\Services\Social;
-use Illuminate\Http\Request;
 use Cms\Modules\Auth as Auth;
 
 class ProvidersController extends BaseUserController
@@ -15,7 +16,8 @@ class ProvidersController extends BaseUserController
         return $this->setView('admin.user.providers', $data, 'module');
     }
 
-    public function removeProvider(Auth\Models\User $user, $provider, Social $social) {
+    public function removeProvider(Auth\Models\User $user, $provider, Social $social)
+    {
         $user_id = $user->id;
 
         if (!$social->removeProvider($user_id, $provider)) {
@@ -24,5 +26,4 @@ class ProvidersController extends BaseUserController
 
         return redirect()->back()->withInfo(sprintf('%s removed successfully', ucwords($provider)));
     }
-
 }

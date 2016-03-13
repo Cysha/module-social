@@ -1,16 +1,16 @@
-<?php namespace Cms\Modules\Social\Events\Handlers;
+<?php
+
+namespace Cms\Modules\Social\Events\Handlers;
 
 use Cms\Modules\Admin\Events\GotDatatableConfig;
 use Illuminate\Support\Facades\Request;
 
 class ManipulateUserDatatable
 {
-
     /**
      * Handle the event.
      *
-     * @param  GotDatatableConfig $event
-     * @return void
+     * @param GotDatatableConfig $event
      */
     public function handle(GotDatatableConfig $event)
     {
@@ -28,10 +28,10 @@ class ManipulateUserDatatable
     {
         array_set($config, 'options.collection', function () {
             $model = config('auth.model');
+
             return $model::with(['roles', 'providers'])->get();
         });
     }
-
 
     private function addProviderColumn(&$config)
     {
@@ -58,5 +58,4 @@ class ManipulateUserDatatable
         array_splice($config['columns'], 4, 0, $column);
         //array_set($config, 'columns', $config);
     }
-
 }
