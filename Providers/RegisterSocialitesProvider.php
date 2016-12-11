@@ -55,6 +55,15 @@ class RegisterSocialitesProvider extends BaseEventsProvider
                 continue;
             }
 
+            $keys = [
+                config('services.'.$dir.'.client_id', null),
+                config('services.'.$dir.'.client_secret', null),
+            ];
+
+            if (in_array(null, $keys)) {
+                continue;
+            }
+
             $event = sprintf('SocialiteProviders\%1$s\%1$sExtendSocialite', ucwords(class_basename($dir)));
 
             $listen[] = $event;
