@@ -10,6 +10,6 @@ class UserProvider extends BaseModel
 
     public function users()
     {
-        return $this->hasOne(config('auth.model'));
+        return $this->hasOne(config('cms.auth.config.user_model'));
     }
 }

@@ -27,7 +27,7 @@ class ManipulateUserDatatable
     private function resetCollection(&$config)
     {
         array_set($config, 'options.collection', function () {
-            $model = config('auth.model');
+            $model = config('cms.auth.config.user_model');
 
             return $model::with(['roles', 'providers'])->get();
         });

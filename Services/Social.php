@@ -82,7 +82,7 @@ class Social
     {
 
         // grab the user object
-        $authModel = config('auth.model');
+        $authModel = config('cms.auth.config.user_model');
 
         $user = with(new $authModel())
                 ->with('providers')
@@ -114,7 +114,7 @@ class Social
      */
     private function loginUser($user)
     {
-        $model = config('auth.model');
+        $model = config('cms.auth.config.user_model');
         if (!($user instanceof $model)) {
             throw new \Exception('No valid user returned');
         }
