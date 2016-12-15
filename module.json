@@ -14,7 +14,8 @@
     "providers": [
         "Cms\\Modules\\Social\\Providers\\SocialModuleServiceProvider",
         "Cms\\Modules\\Social\\Providers\\SocialEventsProvider",
-        "Cms\\Modules\\Social\\Providers\\SocialRoutingProvider"
+        "Cms\\Modules\\Social\\Providers\\SocialRoutingProvider",
+        "Cms\\Modules\\Social\\Providers\\SocialModelsProvider"
     ],
     "aliases": {
     },
