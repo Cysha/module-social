@@ -3,8 +3,8 @@
 use Illuminate\Routing\Router;
 
 $router->group(['prefix' => 'login'], function (Router $router) {
-    // Authentication
 
+    // Authentication
     $router->group(['prefix' => '{provider}'], function (Router $router) {
 
         $router->get('remove', ['as' => 'pxcms.user.remove_provider', 'uses' => 'AuthController@removeProvider']);

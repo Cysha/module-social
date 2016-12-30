@@ -48,20 +48,21 @@ class RegisterSocialitesProvider extends BaseEventsProvider
         $listen = [];
         $listener = 'SocialiteProviders\Manager\SocialiteWasCalled';
         foreach ($file->Directories($path) as $dir) {
-            if (class_basename($dir) == 'manager') {
+            $dirName = class_basename($dir);
+            if ($dirName == 'manager') {
                 continue;
             }
 
             $keys = [
-                config('services.'.$dir.'.client_id', null),
-                config('services.'.$dir.'.client_secret', null),
+                config('services.'.$dirName.'.client_id', null),
+                config('services.'.$dirName.'.client_secret', null),
             ];
 
             if (in_array(null, $keys)) {
                 continue;
             }
 
-            $event = sprintf('SocialiteProviders\%1$s\%1$sExtendSocialite', ucwords(class_basename($dir)));
+            $event = sprintf('SocialiteProviders\%1$s\%1$sExtendSocialite', ucwords($dirName));
 
             $listen[] = $event;
             \Debug::console([$event, $listener]);

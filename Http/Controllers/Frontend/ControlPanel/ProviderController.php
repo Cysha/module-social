@@ -11,7 +11,7 @@ class ProviderController extends BaseController
     public function getForm(Social $social)
     {
         $data = $this->getUserDetails();
-        $this->theme->breadcrumb()->add('Social Provider', route('pxcms.user.provider'));
+        $this->theme->breadcrumb()->add('Social Provider', route('pxcms.user.provider_settings'));
 
         $data['socialiteProviders'] = $social->getProviders();
         $data['installedProviders'] = $social->getInstalledProviders();

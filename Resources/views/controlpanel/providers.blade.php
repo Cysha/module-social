@@ -41,7 +41,7 @@
     </div>
     @endif
 
-    @set($userProviders, $userProviders->lists('provider')->toArray())
+    @set($userProviders, $userProviders->pluck('provider')->toArray())
     @if(count($userProviders) != count($configuredProviders))
     <div class="panel panel-default">
         <div class="panel-heading">
